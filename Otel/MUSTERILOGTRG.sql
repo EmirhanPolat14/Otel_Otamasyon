@@ -1,3 +1,4 @@
+-- müþterilerin check-out sonrasýnda kayýtlarýnýn tutulmasý için delete trigger'ý
 ALTER TRIGGER TRG_CHECKOUT
 ON Musteri
 AFTER DELETE

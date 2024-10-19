@@ -1,3 +1,4 @@
+-- Konaklama ücretini hesaplamayý saðlayan fonksiyon
 ALTER FUNCTION UCRET(@ODA_NO AS TINYINT, @KALINAN_GUN AS INT, @EK_YATAK AS TINYINT)
 RETURNS FLOAT
 AS
@@ -6,7 +7,7 @@ DECLARE @GECELIK AS FLOAT
 DECLARE @RESULT AS FLOAT
 SET @GECELIK = (SELECT Gecelik_Ucret FROM Odalar WHERE @ODA_NO = Oda_No)
 
-
+-- kalýnan gün 0 olursa ücret yanlýþ çýkacaðý için kontrol
 IF @KALINAN_GUN = 0 
 	SET @RESULT = @GECELIK + (300 * @EK_YATAK)
 ELSE
