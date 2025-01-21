@@ -1,0 +1,24 @@
+TRUNCATE TABLE REZERVASYONLAR
+SELECT * FROM Rezervasyonlar
+
+
+--DECLARE @musid AS INT = (SELECT  Musterý_Id FROM Rezervasyonlar WHERE Rez_Id = 1)
+--SELECT TUTAR FROM ODEMELER WHERE MUSTERI_ID = @musid
+UPDATE Odalar
+SET Oda_Durumu= 1
+SELECT * FROM Odalar
+
+
+SELECT * FROM Musteri
+TRUNCATE TABLE Musteri
+
+
+TRUNCATE TABLE MusteriHizmet
+SELECT * FROM MusteriHizmet
+
+TRUNCATE TABLE Odemeler
+SELECT * FROM Odemeler
+
+
+
+
