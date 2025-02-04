@@ -25,5 +25,21 @@ namespace Otel_otomasyon
             this.Show();
 
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            FrmUyeOl uye = new FrmUyeOl();
+            this.Hide();
+            uye.ShowDialog();
+            this.Show();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            UyeGiris giris = new UyeGiris();
+            this.Hide();
+            giris.ShowDialog();
+            this.Show();
+        }
     }
 }

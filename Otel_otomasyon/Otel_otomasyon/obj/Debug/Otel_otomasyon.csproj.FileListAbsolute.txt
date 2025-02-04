@@ -10,3 +10,9 @@ C:\Users\LEGION\Desktop\Otel_Otamasyon\Otel_otomasyon\Otel_otomasyon\obj\Debug\O
 C:\Users\LEGION\Desktop\Otel_Otamasyon\Otel_otomasyon\Otel_otomasyon\obj\Debug\Otel_otomasyon.csproj.CoreCompileInputs.cache
 C:\Users\LEGION\Desktop\Otel_Otamasyon\Otel_otomasyon\Otel_otomasyon\obj\Debug\Otel_otomasyon.exe
 C:\Users\LEGION\Desktop\Otel_Otamasyon\Otel_otomasyon\Otel_otomasyon\obj\Debug\Otel_otomasyon.pdb
+C:\Users\LEGION\Desktop\Otel_Otamasyon\Otel_otomasyon\Otel_otomasyon\obj\Debug\Otel_otomasyon.FrmUyeOl.resources
+C:\Users\LEGION\Desktop\Otel_Otamasyon\Otel_otomasyon\Otel_otomasyon\obj\Debug\Otel_otomasyon.UyeGiris.resources
+C:\Users\LEGION\Desktop\Otel_Otamasyon\Otel_otomasyon\Otel_otomasyon\obj\Debug\Otel_otomasyon.UyeEkrani.resources
+C:\Users\LEGION\Desktop\Otel_Otamasyon\Otel_otomasyon\Otel_otomasyon\obj\Debug\Otel_otomasyon.AdminEkran.resources
+C:\Users\LEGION\Desktop\Otel_Otamasyon\Otel_otomasyon\Otel_otomasyon\obj\Debug\Otel_otomasyon.Check_in.resources
+C:\Users\LEGION\Desktop\Otel_Otamasyon\Otel_otomasyon\Otel_otomasyon\obj\Debug\Otel_otomasyon.Check_out.resources

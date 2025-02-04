@@ -32,7 +32,6 @@
             this.tc = new System.Windows.Forms.MaskedTextBox();
             this.ad = new System.Windows.Forms.TextBox();
             this.soyad = new System.Windows.Forms.TextBox();
-            this.eyatak = new System.Windows.Forms.TextBox();
             this.baslangic = new System.Windows.Forms.DateTimePicker();
             this.kadın = new System.Windows.Forms.RadioButton();
             this.erkek = new System.Windows.Forms.RadioButton();
@@ -41,7 +40,6 @@
             this.doğum = new System.Windows.Forms.DateTimePicker();
             this.mail = new System.Windows.Forms.TextBox();
             this.oda = new System.Windows.Forms.ComboBox();
-            this.kisi = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -65,6 +63,8 @@
             this.odalarBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.otelDataSet1 = new Otel_otomasyon.OtelDataSet1();
             this.odalarTableAdapter = new Otel_otomasyon.OtelDataSet1TableAdapters.OdalarTableAdapter();
+            this.eyatak = new System.Windows.Forms.MaskedTextBox();
+            this.kisi = new System.Windows.Forms.MaskedTextBox();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.odalarBindingSource)).BeginInit();
@@ -73,7 +73,7 @@
             // 
             // tc
             // 
-            this.tc.Location = new System.Drawing.Point(377, 507);
+            this.tc.Location = new System.Drawing.Point(381, 465);
             this.tc.Mask = "00000000000";
             this.tc.Name = "tc";
             this.tc.Size = new System.Drawing.Size(320, 36);
@@ -82,24 +82,19 @@
             // 
             // ad
             // 
-            this.ad.Location = new System.Drawing.Point(377, 549);
+            this.ad.Location = new System.Drawing.Point(381, 507);
             this.ad.Name = "ad";
             this.ad.Size = new System.Drawing.Size(320, 36);
             this.ad.TabIndex = 5;
+            this.ad.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.ad_KeyPress);
             // 
             // soyad
             // 
-            this.soyad.Location = new System.Drawing.Point(377, 591);
+            this.soyad.Location = new System.Drawing.Point(381, 549);
             this.soyad.Name = "soyad";
             this.soyad.Size = new System.Drawing.Size(320, 36);
             this.soyad.TabIndex = 6;
-            // 
-            // eyatak
-            // 
-            this.eyatak.Location = new System.Drawing.Point(377, 153);
-            this.eyatak.Name = "eyatak";
-            this.eyatak.Size = new System.Drawing.Size(87, 36);
-            this.eyatak.TabIndex = 2;
+            this.soyad.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.soyad_KeyPress);
             // 
             // baslangic
             // 
@@ -111,7 +106,7 @@
             // kadın
             // 
             this.kadın.AutoSize = true;
-            this.kadın.Location = new System.Drawing.Point(377, 717);
+            this.kadın.Location = new System.Drawing.Point(381, 675);
             this.kadın.Name = "kadın";
             this.kadın.Size = new System.Drawing.Size(87, 32);
             this.kadın.TabIndex = 9;
@@ -122,7 +117,7 @@
             // erkek
             // 
             this.erkek.AutoSize = true;
-            this.erkek.Location = new System.Drawing.Point(507, 717);
+            this.erkek.Location = new System.Drawing.Point(511, 675);
             this.erkek.Name = "erkek";
             this.erkek.Size = new System.Drawing.Size(87, 32);
             this.erkek.TabIndex = 10;
@@ -132,7 +127,7 @@
             // 
             // tel
             // 
-            this.tel.Location = new System.Drawing.Point(377, 755);
+            this.tel.Location = new System.Drawing.Point(381, 713);
             this.tel.Mask = "(999) 000-0000";
             this.tel.Name = "tel";
             this.tel.Size = new System.Drawing.Size(320, 36);
@@ -147,14 +142,14 @@
             // 
             // doğum
             // 
-            this.doğum.Location = new System.Drawing.Point(377, 675);
+            this.doğum.Location = new System.Drawing.Point(381, 633);
             this.doğum.Name = "doğum";
             this.doğum.Size = new System.Drawing.Size(320, 36);
             this.doğum.TabIndex = 8;
             // 
             // mail
             // 
-            this.mail.Location = new System.Drawing.Point(377, 633);
+            this.mail.Location = new System.Drawing.Point(381, 591);
             this.mail.Name = "mail";
             this.mail.Size = new System.Drawing.Size(320, 36);
             this.mail.TabIndex = 7;
@@ -163,22 +158,15 @@
             // 
             this.oda.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.oda.FormattingEnabled = true;
-            this.oda.Location = new System.Drawing.Point(377, 465);
+            this.oda.Location = new System.Drawing.Point(381, 423);
             this.oda.Name = "oda";
             this.oda.Size = new System.Drawing.Size(320, 36);
             this.oda.TabIndex = 3;
             // 
-            // kisi
-            // 
-            this.kisi.Location = new System.Drawing.Point(377, 24);
-            this.kisi.Name = "kisi";
-            this.kisi.Size = new System.Drawing.Size(320, 36);
-            this.kisi.TabIndex = 1;
-            // 
             // button1
             // 
             this.button1.BackColor = System.Drawing.Color.Aquamarine;
-            this.button1.Location = new System.Drawing.Point(377, 797);
+            this.button1.Location = new System.Drawing.Point(381, 755);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(320, 59);
             this.button1.TabIndex = 14;
@@ -189,7 +177,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(327, 510);
+            this.label1.Location = new System.Drawing.Point(331, 468);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(44, 28);
             this.label1.TabIndex = 7;
@@ -198,7 +186,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(327, 552);
+            this.label2.Location = new System.Drawing.Point(331, 510);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(45, 28);
             this.label2.TabIndex = 7;
@@ -207,7 +195,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(294, 594);
+            this.label3.Location = new System.Drawing.Point(298, 552);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(77, 28);
             this.label3.TabIndex = 7;
@@ -216,7 +204,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(295, 636);
+            this.label4.Location = new System.Drawing.Point(299, 594);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(77, 28);
             this.label4.TabIndex = 7;
@@ -225,7 +213,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(228, 681);
+            this.label5.Location = new System.Drawing.Point(232, 639);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(143, 28);
             this.label5.TabIndex = 7;
@@ -234,7 +222,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(278, 719);
+            this.label6.Location = new System.Drawing.Point(282, 677);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(93, 28);
             this.label6.TabIndex = 7;
@@ -243,7 +231,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(283, 758);
+            this.label7.Location = new System.Drawing.Point(287, 716);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(88, 28);
             this.label7.TabIndex = 7;
@@ -270,7 +258,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(127, 27);
+            this.label10.Location = new System.Drawing.Point(165, 32);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(244, 28);
             this.label10.TabIndex = 7;
@@ -279,7 +267,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(246, 468);
+            this.label11.Location = new System.Drawing.Point(250, 426);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(125, 28);
             this.label11.TabIndex = 7;
@@ -288,16 +276,16 @@
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(217, 153);
+            this.label12.Location = new System.Drawing.Point(508, 30);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(155, 28);
+            this.label12.Size = new System.Drawing.Size(97, 28);
             this.label12.TabIndex = 7;
-            this.label12.Text = "Ek Yatak Sayısı:";
+            this.label12.Text = "Ek Yatak:";
             // 
             // btnara
             // 
             this.btnara.BackColor = System.Drawing.Color.Aquamarine;
-            this.btnara.Location = new System.Drawing.Point(377, 192);
+            this.btnara.Location = new System.Drawing.Point(458, 150);
             this.btnara.Name = "btnara";
             this.btnara.Size = new System.Drawing.Size(136, 59);
             this.btnara.TabIndex = 14;
@@ -309,7 +297,7 @@
             // 
             this.groupBox1.AccessibleRole = System.Windows.Forms.AccessibleRole.Chart;
             this.groupBox1.Controls.Add(this.dataGridView1);
-            this.groupBox1.Location = new System.Drawing.Point(251, 257);
+            this.groupBox1.Location = new System.Drawing.Point(255, 215);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(523, 202);
             this.groupBox1.TabIndex = 15;
@@ -388,6 +376,26 @@
             // 
             this.odalarTableAdapter.ClearBeforeFill = true;
             // 
+            // eyatak
+            // 
+            this.eyatak.Location = new System.Drawing.Point(610, 24);
+            this.eyatak.Mask = "00";
+            this.eyatak.Name = "eyatak";
+            this.eyatak.Size = new System.Drawing.Size(87, 36);
+            this.eyatak.TabIndex = 4;
+            this.eyatak.ValidatingType = typeof(int);
+            this.eyatak.Validating += new System.ComponentModel.CancelEventHandler(this.eyatak_Validating);
+            // 
+            // kisi
+            // 
+            this.kisi.Location = new System.Drawing.Point(415, 24);
+            this.kisi.Mask = "00";
+            this.kisi.Name = "kisi";
+            this.kisi.Size = new System.Drawing.Size(86, 36);
+            this.kisi.TabIndex = 4;
+            this.kisi.ValidatingType = typeof(int);
+            this.kisi.Validating += new System.ComponentModel.CancelEventHandler(this.kisi_Validating);
+            // 
             // FrmRez
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 28F);
@@ -396,7 +404,7 @@
             this.AutoScrollMargin = new System.Drawing.Size(20, 20);
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.Color.CadetBlue;
-            this.ClientSize = new System.Drawing.Size(922, 724);
+            this.ClientSize = new System.Drawing.Size(943, 724);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.label12);
             this.Controls.Add(this.label11);
@@ -418,12 +426,12 @@
             this.Controls.Add(this.doğum);
             this.Controls.Add(this.bitis);
             this.Controls.Add(this.baslangic);
-            this.Controls.Add(this.kisi);
             this.Controls.Add(this.mail);
-            this.Controls.Add(this.eyatak);
             this.Controls.Add(this.soyad);
             this.Controls.Add(this.ad);
             this.Controls.Add(this.tel);
+            this.Controls.Add(this.kisi);
+            this.Controls.Add(this.eyatak);
             this.Controls.Add(this.tc);
             this.Font = new System.Drawing.Font("Corbel", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
@@ -441,19 +449,17 @@
 
         #endregion
 
-        private System.Windows.Forms.MaskedTextBox tc;
-        private System.Windows.Forms.TextBox ad;
-        private System.Windows.Forms.TextBox soyad;
-        private System.Windows.Forms.TextBox eyatak;
-        private System.Windows.Forms.DateTimePicker baslangic;
-        private System.Windows.Forms.RadioButton kadın;
-        private System.Windows.Forms.RadioButton erkek;
-        private System.Windows.Forms.MaskedTextBox tel;
-        private System.Windows.Forms.DateTimePicker bitis;
-        private System.Windows.Forms.DateTimePicker doğum;
-        private System.Windows.Forms.TextBox mail;
+        public System.Windows.Forms.MaskedTextBox tc;
+        public System.Windows.Forms.TextBox ad;
+        public System.Windows.Forms.TextBox soyad;
+        public System.Windows.Forms.DateTimePicker baslangic;
+        public System.Windows.Forms.RadioButton kadın;
+        public System.Windows.Forms.RadioButton erkek;
+        public System.Windows.Forms.MaskedTextBox tel;
+        public System.Windows.Forms.DateTimePicker bitis;
+        public System.Windows.Forms.DateTimePicker doğum;
+        public System.Windows.Forms.TextBox mail;
         private System.Windows.Forms.ComboBox oda;
-        private System.Windows.Forms.TextBox kisi;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
@@ -477,5 +483,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn gecelikUcretDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn mevcutKapasiteDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn maxKapasiteDataGridViewTextBoxColumn;
+        private System.Windows.Forms.MaskedTextBox eyatak;
+        private System.Windows.Forms.MaskedTextBox kisi;
     }
 }

@@ -35,6 +35,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Windows.Forms.DataVisualization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -46,6 +47,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdminEkran.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AdminEkran.Designer.cs">
+      <DependentUpon>AdminEkran.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Check-in.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Check-in.Designer.cs">
+      <DependentUpon>Check-in.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Check-out.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Check-out.Designer.cs">
+      <DependentUpon>Check-out.cs</DependentUpon>
+    </Compile>
     <Compile Include="FrmAna.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -57,6 +76,12 @@
     </Compile>
     <Compile Include="FrmRez.Designer.cs">
       <DependentUpon>FrmRez.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmUyeOl.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmUyeOl.Designer.cs">
+      <DependentUpon>FrmUyeOl.cs</DependentUpon>
     </Compile>
     <Compile Include="OtelDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -70,11 +95,35 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UyeEkrani.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UyeEkrani.Designer.cs">
+      <DependentUpon>UyeEkrani.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UyeGiris.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UyeGiris.Designer.cs">
+      <DependentUpon>UyeGiris.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="AdminEkran.resx">
+      <DependentUpon>AdminEkran.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Check-in.resx">
+      <DependentUpon>Check-in.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Check-out.resx">
+      <DependentUpon>Check-out.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FrmAna.resx">
       <DependentUpon>FrmAna.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmRez.resx">
       <DependentUpon>FrmRez.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmUyeOl.resx">
+      <DependentUpon>FrmUyeOl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -85,6 +134,12 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="UyeEkrani.resx">
+      <DependentUpon>UyeEkrani.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UyeGiris.resx">
+      <DependentUpon>UyeGiris.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="OtelDataSet.xsc">
       <DependentUpon>OtelDataSet.xsd</DependentUpon>
     </None>

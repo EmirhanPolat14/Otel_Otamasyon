@@ -1,8 +1,8 @@
-ALTER FUNCTION MUSAITODA(
-@KISI TINYINT,
+ALTER FUNCTION [dbo].[MUSAITODA](
+@KISI SMALLINT,
 @BASLANGIC DATE,
 @BITIS DATE,
-@EK_YATAK TINYINT = 0)
+@EK_YATAK SMALLINT = 0)
 RETURNS @TBL TABLE (
 		ODANO TINYINT
 )
@@ -10,11 +10,15 @@ AS
 BEGIN
 		
 		INSERT INTO @TBL(ODANO)
-		SELECT O.Oda_No  FROM Odalar O
-		-- YETERLÝ SAYIDA EK YATAK OLUP OLMADIÐI
-		WHERE (CONVERT(SMALLINT,@KISI) - CONVERT(SMALLINT,Mevcut_Kapasite)) <= CONVERT(SMALLINT, @EK_YATAK) 
-		-- HER EK YATAK EKLEMEK 1 KÝSÝ EKLENDÝÐÝ VARSAYIMINA GÖRE ODADAKÝ KÝÞÝ VE EK YATAK SAYISININ ODANIN MAX KAP.'INI GEÇÝP GEÇMEDÝÐÝ
-		AND @KISI + @EK_YATAK  <= Max_Kapasite
+		SELECT O.Oda_No  
+		FROM Odalar O
+		WHERE @KISI <= O.Max_Kapasite 
+		-- kiþi sayýsý maksimum kapasiteyi aþmamalý
+		AND @KISI <= Max_Kapasite
+		-- odanýn ek yatak kapasitesi (makskapasite - mevcut kapasite) aþýlmamalý
+		AND (O.Max_Kapasite - O.Mevcut_Kapasite) >= @EK_YATAK
+		-- ek yataklar gittiðinde kalan kiþi sayýsý mevcut kapasiteden küçük olmalý
+		AND @KISI - @EK_YATAK <= Mevcut_Kapasite
 		AND Oda_Durumu = 1 
 		-- AYNI TARÝHLERDE REZ BULUNUP BULUNMAMA
 		AND NOT EXISTS (SELECT 1 
@@ -29,4 +33,8 @@ END
 
 -- BUNU DATA GRÝDE UYGULAMAYA ÇALIÞCAN
 SELECT * FROM Odalar
-WHERE Oda_no IN (SELECT ODANO FROM DBO.MUSAITODA(3,GETDATE(),GETDATE(),4))
+WHERE Oda_no IN (SELECT ODANO FROM DBO.MUSAITODA(8,GETDATE(),'2025-02-11',4))
+
+select * from Rezervasyonlar
+
+

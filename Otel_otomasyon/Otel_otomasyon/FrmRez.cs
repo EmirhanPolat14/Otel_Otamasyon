@@ -9,6 +9,8 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Net.Mail;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace Otel_otomasyon
 {
@@ -20,8 +22,9 @@ namespace Otel_otomasyon
         private string dtarih = string.Empty;
         private string cins = string.Empty;
         private string telefon = string.Empty;
+        private string email = string.Empty;
         private int n = 1;
-        private int i = 1;
+        public int i = 1;
         public FrmRez()
         {
             InitializeComponent();
@@ -33,12 +36,26 @@ namespace Otel_otomasyon
         {
             // TODO: This line of code loads data into the 'otelDataSet1.Odalar' table. You can move, or remove it, as needed.
             this.odalarTableAdapter.Fill(this.otelDataSet1.Odalar);
-
+            
             button1.Enabled = false;
         }
         
         private void btnara_Click(object sender, EventArgs e)
         {
+            //alanların düzgün girilip girilmediğini denetleme
+            if (string.IsNullOrWhiteSpace(kisi.Text))
+            {
+                MessageBox.Show("Kişi Sayısı girmek zorunludur.");
+                kisi.Focus();
+                return;
+            }
+            if (string.IsNullOrWhiteSpace(eyatak.Text))
+            {
+                eyatak.Text = "0";
+            }
+
+            // butona bir daha basarsa bir önceki listelenen odalar silinsin
+            oda.Items.Clear();
             // boş odalaraın sp yardımıyla combobox'da gözükmesi
             baglanti.Open();
             SqlCommand kmt = new SqlCommand("SELECT * FROM dbo.MUSAITODA(@p1,@p2,@p3,@p4)", baglanti);
@@ -57,21 +74,80 @@ namespace Otel_otomasyon
             if (n > 1) { button1.Text = "Sonraki"; }
             else if (n == 1) { button1.Text = "Rezervasyon Yap"; }
             else { MessageBox.Show("Lütfen kişi sayısını doğru girin!"); }
-            //------------------------!!!!!!!!!!!!
-            //SqlDataAdapter dataAdapter = new SqlDataAdapter("SELECT * FROM dbo.MUSAITODA(@Filter)", baglanti);
-            //dataAdapter.SelectCommand.Parameters.AddWithValue("@Filter", filter);  // Filter parametresi ekleniyor
 
-            //// DataTable oluşturulup, veriler alınıyor
-            //DataTable dt = new DataTable();
-            //dataAdapter.Fill(dt);
+            // data
+            SqlDataAdapter dataAdapter = new SqlDataAdapter("SELECT * FROM Odalar WHERE Oda_no IN(SELECT ODANO FROM DBO.MUSAITODA(@p1,@p2,@p3,@p4))", baglanti);
+            dataAdapter.SelectCommand.Parameters.AddWithValue("@p1", kisi.Text);
+            dataAdapter.SelectCommand.Parameters.AddWithValue("@p2", baslangic.Value);
+            dataAdapter.SelectCommand.Parameters.AddWithValue("@p3", bitis.Value);
+            dataAdapter.SelectCommand.Parameters.AddWithValue("@p4", eyatak.Text);
 
-            //// DataGridView'e DataTable'ı set etme
-            //dataGridView1.DataSource = dt;
+            // DataTable oluşturulup, veriler alınıyor
+            DataTable dt = new DataTable();
+            dataAdapter.Fill(dt);
+
+            // DataGridView'e DataTable'ı yollama
+            dataGridView1.DataSource = dt;
 
         }
-                               
+
         private void button1_Click(object sender, EventArgs e)
         {
+            //alanlara girilen değerlerin kontrolü
+            if (string.IsNullOrWhiteSpace(mail.Text) || !Valid_mail(mail.Text))
+            {
+                MessageBox.Show("Lütfen geçerli bir e-posta adresi girin!");
+                mail.Focus();
+                return;
+            }
+            if (string.IsNullOrWhiteSpace(oda.Text))
+            {
+                MessageBox.Show("Oda alanı boş bırakılamaz!");
+                oda.Focus();
+                return;
+            }
+
+            if (tc.Text.Trim().Length != 11)
+            {
+                MessageBox.Show("Lütfen geçerli bir TC kimlik numarası giriniz!");
+                tc.Focus();
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(ad.Text) || ad.Text.Length > 50 || ad.Text.Length < 2) 
+            {
+                MessageBox.Show("İsminiz 2 karakterden kısa veya 50 karakterden uzun olamaz!");
+                ad.Focus();
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(soyad.Text) || ad.Text.Length > 50 || soyad.Text.Length < 2)
+            {
+                MessageBox.Show("Soyadınız 2 karakterden kısa veya 50 karakterden uzun olamaz!");
+                soyad.Focus();
+                return;
+            }
+
+            if (DateTime.Now.Year - doğum.Value.Year < 18 && i == 1)
+            {
+                MessageBox.Show("Rezervasyon oluşturabilmek için yaşınız en az 18 olmalı!");
+                doğum.Focus();
+                return;
+            }
+
+            if (erkek.Checked == false && kadın.Checked == false)
+            {
+                MessageBox.Show("Lütfen cinsiyet seçimi yapınız.");
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(tel.Text) || tel.Text.Trim().Length != 14)
+            {
+                MessageBox.Show("Lütfen geçerli bir telefon numarası giriniz!");
+                return;
+            }
+
+
             if (button1.Text == "Rezervasyon Yap")
             {
                 isim += ad.Text + ",";
@@ -79,6 +155,8 @@ namespace Otel_otomasyon
                 tece += tc.Text + ",";
                 dtarih += doğum.Value + ",";
                 telefon += tel.Text + ",";
+                email += mail.Text + ",";
+
                 if (erkek.Checked == true)
                 {
                     cins += "1" + ",";
@@ -104,14 +182,10 @@ namespace Otel_otomasyon
                     rezsp.Parameters.AddWithValue("@ISIM", isim);
                     rezsp.Parameters.AddWithValue("@SOYISIM", soyisim);
                     rezsp.Parameters.AddWithValue("@TCNO", tece);
-                    rezsp.Parameters.AddWithValue("@TELEFON", telefon);
-                    //rezsp.Parameters.AddWithValue("@DOGUM_TARIH", dtarih);
-                    var dogumTarihiValues = string.Join(",", dtarih.Split(',')
-                    .Where(d => DateTime.TryParse(d, out _)) // Sadece geçerli tarihleri alır
-                    .Select(d => DateTime.Parse(d).ToString("yyyy-MM-dd")));
-                    rezsp.Parameters.AddWithValue("@DOGUM_TARIH", dogumTarihiValues);
                     rezsp.Parameters.AddWithValue("@CINSIYET", cins);
-                    rezsp.Parameters.AddWithValue("@MAIL", mail.Text);
+                    rezsp.Parameters.AddWithValue("@TELEFON", telefon);
+                    rezsp.Parameters.AddWithValue("@MAIL", email);
+                    rezsp.Parameters.AddWithValue("@DOGUM_TARIH", dtarih);
                     rezsp.Parameters.AddWithValue("@ODA_NO", oda.Text);
                     rezsp.Parameters.AddWithValue("@BASLANGICTARIHI", baslangic.Value);
                     rezsp.Parameters.AddWithValue("@BITISTARIHI", bitis.Value);
@@ -157,7 +231,6 @@ namespace Otel_otomasyon
                     button1.Text = "Rezervasyon Yap";
                 }
 
-                MessageBox.Show(isim+soyisim+tece+dtarih+cins,telefon);
                 i++;
                 
                 if (i > 1)
@@ -167,7 +240,6 @@ namespace Otel_otomasyon
                     baslangic.Enabled = false;
                     bitis.Enabled = false;
                     oda.Enabled = false;
-                    mail.Enabled = false;
                     eyatak.Enabled = false;
                     btnara.Enabled = false;
                     // ilk kayıttan sonra giriş yapılan alanlar temizlenir
@@ -175,6 +247,11 @@ namespace Otel_otomasyon
                     ad.Text = string.Empty;
                     soyad.Text = string.Empty;
                     doğum.Value = DateTime.Today;
+                    tel.Text = string.Empty;
+                    mail.Text = string.Empty;
+                    kadın.Checked = false;
+                    erkek.Checked = false;
+                    
                 }
             }
         }
@@ -182,9 +259,54 @@ namespace Otel_otomasyon
         private void Baglanti_InfoMessage(object sender, SqlInfoMessageEventArgs e)
         {
             // SQL Server'dan gelen mesajları al ve işle
-            MessageBox.Show($"SQL Server Mesajı: {e.Message}", "Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show($"{e.Message}", "Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
+        private void eyatak_Validating(object sender, CancelEventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(eyatak.Text))
+            {
+                eyatak.Text = 0.ToString();
+            }
+        }
+
+        private void kisi_Validating(object sender, CancelEventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(kisi.Text))
+            {
+                MessageBox.Show("Kişi Sayısı girmek zorunludur.");
+                e.Cancel = true;
+            }
+        }
+
+        private void ad_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsLetter(e.KeyChar) && e.KeyChar != (char)Keys.Back && e.KeyChar != (char)Keys.Space)
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void soyad_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsLetter(e.KeyChar) && e.KeyChar != (char)Keys.Back && e.KeyChar != (char)Keys.Space)
+            {
+                e.Handled = true;
+            }
+        }
+
+        private bool Valid_mail(string email)
+        {
+            try
+            {
+                MailAddress nm = new MailAddress(email);
+                return true;
+            }
+            catch (FormatException)
+            {
+                return false;
+            }
+        }
     }
 }
   
