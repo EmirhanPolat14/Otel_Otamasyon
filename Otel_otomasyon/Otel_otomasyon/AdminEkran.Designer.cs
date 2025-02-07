@@ -53,6 +53,7 @@
             this.btnTemizle = new System.Windows.Forms.Button();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.checkoutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.checkinToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.gbgelecek.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgeski)).BeginInit();
             this.menuStrip1.SuspendLayout();
@@ -300,7 +301,8 @@
             // 
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.checkoutToolStripMenuItem});
+            this.checkoutToolStripMenuItem,
+            this.checkinToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(1067, 28);
@@ -313,6 +315,13 @@
             this.checkoutToolStripMenuItem.Size = new System.Drawing.Size(90, 24);
             this.checkoutToolStripMenuItem.Text = "Check-out";
             this.checkoutToolStripMenuItem.Click += new System.EventHandler(this.checkoutToolStripMenuItem_Click);
+            // 
+            // checkinToolStripMenuItem
+            // 
+            this.checkinToolStripMenuItem.Name = "checkinToolStripMenuItem";
+            this.checkinToolStripMenuItem.Size = new System.Drawing.Size(80, 24);
+            this.checkinToolStripMenuItem.Text = "Check-in";
+            this.checkinToolStripMenuItem.Click += new System.EventHandler(this.checkinToolStripMenuItem_Click);
             // 
             // AdminEkran
             // 
@@ -385,5 +394,6 @@
         private System.Windows.Forms.Button btnTemizle;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem checkoutToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem checkinToolStripMenuItem;
     }
 }

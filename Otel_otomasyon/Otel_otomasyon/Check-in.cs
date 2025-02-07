@@ -30,11 +30,41 @@ namespace Otel_otomasyon
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(mail.Text) || !Valid_mail(mail.Text))
+            if (rezno.Text == string.Empty)
             {
-                MessageBox.Show("Lütfen geçerli bir e-posta adresi girin!");
-                mail.Focus();
-                return;
+                if (string.IsNullOrWhiteSpace(mail.Text) || !Valid_mail(mail.Text))
+                {
+                    MessageBox.Show("Lütfen geçerli bir e-posta adresi girin!");
+                    mail.Focus();
+                    return;
+                }
+                
+                if (string.IsNullOrWhiteSpace(ad.Text) || ad.Text.Length > 50 || ad.Text.Length < 2)
+                {
+                    MessageBox.Show("İsminiz 2 karakterden kısa veya 50 karakterden uzun olamaz!");
+                    ad.Focus();
+                    return;
+                }
+
+                if (string.IsNullOrWhiteSpace(soyad.Text) || ad.Text.Length > 50 || soyad.Text.Length < 2)
+                {
+                    MessageBox.Show("Soyadınız 2 karakterden kısa veya 50 karakterden uzun olamaz!");
+                    soyad.Focus();
+                    return;
+                }
+
+
+                if (erkek.Checked == false && kadın.Checked == false)
+                {
+                    MessageBox.Show("Lütfen cinsiyet seçimi yapınız.");
+                    return;
+                }
+
+                if (string.IsNullOrWhiteSpace(tel.Text) || tel.Text.Trim().Length != 14)
+                {
+                    MessageBox.Show("Lütfen geçerli bir telefon numarası giriniz!");
+                    return;
+                }
             }
             if (tc.Text.Trim().Length != 11)
             {
@@ -42,32 +72,7 @@ namespace Otel_otomasyon
                 tc.Focus();
                 return;
             }
-            if (string.IsNullOrWhiteSpace(ad.Text) || ad.Text.Length > 50 || ad.Text.Length < 2)
-            {
-                MessageBox.Show("İsminiz 2 karakterden kısa veya 50 karakterden uzun olamaz!");
-                ad.Focus();
-                return;
-            }
 
-            if (string.IsNullOrWhiteSpace(soyad.Text) || ad.Text.Length > 50 || soyad.Text.Length < 2)
-            {
-                MessageBox.Show("Soyadınız 2 karakterden kısa veya 50 karakterden uzun olamaz!");
-                soyad.Focus();
-                return;
-            }
-
-
-            if (erkek.Checked == false && kadın.Checked == false)
-            {
-                MessageBox.Show("Lütfen cinsiyet seçimi yapınız.");
-                return;
-            }
-
-            if (string.IsNullOrWhiteSpace(tel.Text) || tel.Text.Trim().Length != 14)
-            {
-                MessageBox.Show("Lütfen geçerli bir telefon numarası giriniz!");
-                return;
-            }
             baglanti.Open();
             try
             {
@@ -107,11 +112,11 @@ namespace Otel_otomasyon
                 tel.Text = string.Empty;
                 mail.Text = string.Empty;
                 doğum.Value = DateTime.Now;
+                this.Close();
             }
             catch (SqlException ex)
             {
                 MessageBox.Show("SQL Hatası: " + ex.Message);
-                this.Close();
             }
             finally
             {
@@ -121,7 +126,7 @@ namespace Otel_otomasyon
 
         private void rezno_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (char.IsDigit(e.KeyChar) && e.KeyChar != (char)Keys.Back)
+            if (!char.IsNumber(e.KeyChar) && e.KeyChar != (char)Keys.Back)
             {
                 e.Handled = true;
             }

@@ -310,6 +310,8 @@
             this.dataGridView1.AllowUserToAddRows = false;
             this.dataGridView1.AllowUserToDeleteRows = false;
             this.dataGridView1.AutoGenerateColumns = false;
+            this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dataGridView1.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.odaNoDataGridViewTextBoxColumn,
@@ -333,7 +335,6 @@
             this.odaNoDataGridViewTextBoxColumn.MinimumWidth = 6;
             this.odaNoDataGridViewTextBoxColumn.Name = "odaNoDataGridViewTextBoxColumn";
             this.odaNoDataGridViewTextBoxColumn.ReadOnly = true;
-            this.odaNoDataGridViewTextBoxColumn.Width = 125;
             // 
             // gecelikUcretDataGridViewTextBoxColumn
             // 
@@ -342,7 +343,6 @@
             this.gecelikUcretDataGridViewTextBoxColumn.MinimumWidth = 6;
             this.gecelikUcretDataGridViewTextBoxColumn.Name = "gecelikUcretDataGridViewTextBoxColumn";
             this.gecelikUcretDataGridViewTextBoxColumn.ReadOnly = true;
-            this.gecelikUcretDataGridViewTextBoxColumn.Width = 125;
             // 
             // mevcutKapasiteDataGridViewTextBoxColumn
             // 
@@ -351,7 +351,6 @@
             this.mevcutKapasiteDataGridViewTextBoxColumn.MinimumWidth = 6;
             this.mevcutKapasiteDataGridViewTextBoxColumn.Name = "mevcutKapasiteDataGridViewTextBoxColumn";
             this.mevcutKapasiteDataGridViewTextBoxColumn.ReadOnly = true;
-            this.mevcutKapasiteDataGridViewTextBoxColumn.Width = 125;
             // 
             // maxKapasiteDataGridViewTextBoxColumn
             // 
@@ -360,7 +359,6 @@
             this.maxKapasiteDataGridViewTextBoxColumn.MinimumWidth = 6;
             this.maxKapasiteDataGridViewTextBoxColumn.Name = "maxKapasiteDataGridViewTextBoxColumn";
             this.maxKapasiteDataGridViewTextBoxColumn.ReadOnly = true;
-            this.maxKapasiteDataGridViewTextBoxColumn.Width = 125;
             // 
             // odalarBindingSource
             // 

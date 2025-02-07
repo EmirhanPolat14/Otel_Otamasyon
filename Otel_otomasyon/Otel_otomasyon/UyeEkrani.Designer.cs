@@ -32,18 +32,22 @@
             this.gbgecmis = new System.Windows.Forms.GroupBox();
             this.label1 = new System.Windows.Forms.Label();
             this.gbrezyap = new System.Windows.Forms.GroupBox();
+            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgeski)).BeginInit();
             this.gbgecmis.SuspendLayout();
             this.SuspendLayout();
             // 
             // dgeski
             // 
+            this.dgeski.AllowUserToAddRows = false;
+            this.dgeski.AllowUserToDeleteRows = false;
             this.dgeski.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgeski.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dgeski.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgeski.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgeski.Location = new System.Drawing.Point(3, 32);
             this.dgeski.Name = "dgeski";
+            this.dgeski.ReadOnly = true;
             this.dgeski.RowHeadersWidth = 51;
             this.dgeski.RowTemplate.Height = 24;
             this.dgeski.Size = new System.Drawing.Size(862, 222);
@@ -79,6 +83,17 @@
             this.gbrezyap.TabStop = false;
             this.gbrezyap.Text = "Rezervasyon Yaptır";
             // 
+            // button1
+            // 
+            this.button1.BackColor = System.Drawing.Color.Aquamarine;
+            this.button1.Location = new System.Drawing.Point(766, 12);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(132, 50);
+            this.button1.TabIndex = 4;
+            this.button1.Text = "Yenile";
+            this.button1.UseVisualStyleBackColor = false;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // UyeEkrani
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 28F);
@@ -87,6 +102,7 @@
             this.AutoScrollMargin = new System.Drawing.Size(20, 20);
             this.BackColor = System.Drawing.Color.CadetBlue;
             this.ClientSize = new System.Drawing.Size(920, 716);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.gbrezyap);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.gbgecmis);
@@ -108,5 +124,6 @@
         private System.Windows.Forms.GroupBox gbgecmis;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.GroupBox gbrezyap;
+        private System.Windows.Forms.Button button1;
     }
 }

@@ -21,10 +21,15 @@ namespace Otel_otomasyon
             mail = Email;
             InitializeComponent();
         }
-        
+
         SqlConnection baglanti = new SqlConnection("Data Source=LAPTOP-L63PR14S\\MSSQLSERVER1;Initial Catalog=Otel;Integrated Security=True");
 
         private void UyeEkrani_Load(object sender, EventArgs e)
+        {
+            button1_Click(sender, e);
+        }
+
+        private void button1_Click(object sender, EventArgs e)
         {
             baglanti.Open();
             // giriş erkan yazısı
@@ -52,18 +57,18 @@ namespace Otel_otomasyon
             da1.Fill(dt1);
             dgeski.DataSource = dt1;
 
-            gbgecmis.Width = dgeski.Width;
-            gbgecmis.Height = dgeski.Height;
+            //gbgecmis.Width = dgeski.Width;
+            //gbgecmis.Height = dgeski.Height;
 
 
-            
+
             // Rezervasyon groupbox doldurma
             FrmRez frmRez = new FrmRez
             {
                 TopLevel = false,
                 FormBorderStyle = FormBorderStyle.None, // Kenarlık kaldırılır
                 Dock = DockStyle.Fill                  // Alanı tamamen doldurur
-               
+
             };
             frmRez.BackColor = Color.White;
             gbrezyap.Controls.Clear();
@@ -83,25 +88,18 @@ namespace Otel_otomasyon
                     frmRez.ad.Text = dr2[1].ToString();
                     frmRez.soyad.Text = dr2[2].ToString();
                     frmRez.doğum.Text = dr2[3].ToString();
-                    if (dr2[4].ToString() == "1") { frmRez.erkek.Checked = true; }
-                    else if (dr2[4].ToString() == "0") { frmRez.kadın.Checked = true; }
+                    if (Convert.ToInt16(dr2[4]) == 1) { frmRez.erkek.Checked = true; }
+                    else if (Convert.ToInt16(dr2[4]) == 0) { frmRez.kadın.Checked = true; }
                     frmRez.tel.Text = dr2[5].ToString();
                     frmRez.mail.Text = mail;
 
                 }
-                
+
             }
             dr2.Close();
-            
+
 
             baglanti.Close();
-
-
-            
-
-
-            
         }
-
     }
 }

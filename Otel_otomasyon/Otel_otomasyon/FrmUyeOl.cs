@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
 using System.Net.Mail;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace Otel_otomasyon
 {
@@ -97,6 +98,12 @@ namespace Otel_otomasyon
 
                 uyeol.ExecuteNonQuery();
 
+                MessageBox.Show("Üyelik başarıyla oluşturuldu.");
+                this.Hide();
+                UyeEkrani uyekran = new UyeEkrani(mail.Text);
+                uyekran.ShowDialog();
+                this.Close();
+
                 // Formun temizlenmesi
                 tc.Text = string.Empty;
                 ad.Text = string.Empty;
@@ -107,9 +114,6 @@ namespace Otel_otomasyon
                 erkek.Checked = false;
                 tel.Text = string.Empty;
                 sifre.Text = string.Empty;
-
-                MessageBox.Show("Üyelik başarıyla oluşturuldu.");
-                this.Close();
             }
             catch (SqlException ex)
             {

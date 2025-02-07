@@ -53,6 +53,12 @@ namespace Otel_otomasyon
             {
                 eyatak.Text = "0";
             }
+            if (baslangic.Value > bitis.Value)
+            {
+                MessageBox.Show("Başlangıç tarihi bitiş tarihinden daha erken olmalıdır!");
+                baslangic.Focus();
+                return;
+            }
 
             // butona bir daha basarsa bir önceki listelenen odalar silinsin
             oda.Items.Clear();
@@ -94,12 +100,6 @@ namespace Otel_otomasyon
         private void button1_Click(object sender, EventArgs e)
         {
             //alanlara girilen değerlerin kontrolü
-            if (string.IsNullOrWhiteSpace(mail.Text) || !Valid_mail(mail.Text))
-            {
-                MessageBox.Show("Lütfen geçerli bir e-posta adresi girin!");
-                mail.Focus();
-                return;
-            }
             if (string.IsNullOrWhiteSpace(oda.Text))
             {
                 MessageBox.Show("Oda alanı boş bırakılamaz!");
@@ -128,6 +128,30 @@ namespace Otel_otomasyon
                 return;
             }
 
+            // sadece ilk kişinin email zorunlu ve sadece ilk yani rezervasyon kaydı yapacak kişi 18  yaştan büyük olmalı
+            if ( i == 1  )
+            {
+                if (string.IsNullOrWhiteSpace(mail.Text) || !Valid_mail(mail.Text))
+                {
+                    MessageBox.Show("Lütfen geçerli bir e-posta adresi girin! " );
+
+                    mail.Focus();
+                    return;
+                }
+                 
+            }
+            else
+            {
+                if (string.IsNullOrWhiteSpace(mail.Text) == false && !Valid_mail(mail.Text))
+                {
+                    MessageBox.Show("Lütfen geçerli bir e-posta adresi girin! ");
+
+                    mail.Focus();
+                    return;
+                }
+            }
+
+
             if (DateTime.Now.Year - doğum.Value.Year < 18 && i == 1)
             {
                 MessageBox.Show("Rezervasyon oluşturabilmek için yaşınız en az 18 olmalı!");
@@ -141,7 +165,8 @@ namespace Otel_otomasyon
                 return;
             }
 
-            if (string.IsNullOrWhiteSpace(tel.Text) || tel.Text.Trim().Length != 14)
+            // yaş 18den küçükse zaten telefon olmayacaktır
+            if ((string.IsNullOrWhiteSpace(tel.Text) || tel.Text.Trim().Length != 14) && DateTime.Now.Year - doğum.Value.Year > 18 )
             {
                 MessageBox.Show("Lütfen geçerli bir telefon numarası giriniz!");
                 return;
@@ -167,6 +192,7 @@ namespace Otel_otomasyon
                 }
                 try
                 {
+                    
                     // sqlden aldığımız hataları ekleme
                     baglanti.InfoMessage += Baglanti_InfoMessage;
                     if (baglanti.State != ConnectionState.Open)
@@ -208,12 +234,15 @@ namespace Otel_otomasyon
             }
             else if (button1.Text == "Sonraki")
             {
-                // önce tüm isimleri toplayacak
+                
+                // önce tüm isimleri VS. toplayacak
                 isim += ad.Text + ",";
                 soyisim += soyad.Text + ",";
                 tece += tc.Text + ",";
                 dtarih += doğum.Value + ",";
-                telefon += tel.Text + ","; 
+                telefon += tel.Text + ",";
+                email += mail.Text + ",";
+                
 
                 if (erkek.Checked == true)
                 {

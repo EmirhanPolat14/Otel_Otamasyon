@@ -44,28 +44,6 @@ namespace Otel_otomasyon
 
             for (int i = 1; i <= 7; i++)
             {
-                // 30 güne kadar herhangi bir randevu varsa oda butonunun altında gösterir
-                SqlCommand kmt1 = new SqlCommand("SELECT dbo.ENYAKINREZ(@p1)", baglanti);
-                kmt1.Parameters.AddWithValue("@p1", i);
-                SqlDataReader dr1 = kmt1.ExecuteReader();
-                while (dr1.Read())
-                {
-                    Label lblOda = this.Controls["lbloda" + i] as Label;
-                    if (dr1[0].ToString() == "0")
-                    {
-                        lblOda.Text = $"Bir sonraki rezervasyon \nBUGÜN.";
-                    }
-                    else if (dr1[0].ToString() == "31")
-                    {
-                        lblOda.Text = string.Empty;
-                    }
-                    else
-                    {
-                        lblOda.Text = $"Bir sonraki rezervasyona\r\n{dr1[0]} gün var.";
-                    }
-                }
-                dr1.Close();
-
                 SqlCommand kmt2 = new SqlCommand("SELECT dbo.BUTONRENK(@p1)", baglanti);
                 kmt2.Parameters.AddWithValue("@p1", i);
                 SqlDataReader dr2 = kmt2.ExecuteReader();
@@ -88,10 +66,44 @@ namespace Otel_otomasyon
                     }
                     if (btnoda.BackColor == Color.Green)
                     {
+                        
                         btnoda.Enabled = false;
                     }
                 }
                 dr2.Close();
+                // 30 güne kadar herhangi bir randevu varsa oda butonunun altında gösterir
+                SqlCommand kmt1 = new SqlCommand("SELECT dbo.ENYAKINREZ(@p1)", baglanti);
+                kmt1.Parameters.AddWithValue("@p1", i);
+                SqlDataReader dr1 = kmt1.ExecuteReader();
+                while (dr1.Read())
+                {
+                    Label lblOda = this.Controls["lbloda" + i] as Label;
+                    Button bo = this.Controls["btnoda" + i] as Button;
+                    if(bo.BackColor == Color.Green)
+                    {
+                        if (dr1[0].ToString() == "0")
+                        {
+                            lblOda.Text = $"Bir sonraki rezervasyon \nBUGÜN.";
+
+                            bo.Enabled = true;
+                        }
+                        else if (dr1[0].ToString() == "31")
+                        {
+                            lblOda.Text = string.Empty;
+                        }
+                        else
+                        {
+                            lblOda.Text = $"Bir sonraki rezervasyona\r\n{dr1[0]} gün var.";
+                        }
+                    }
+                    else if (bo.BackColor == Color.Red)
+                    {
+                        lblOda.Text = string.Empty;
+                    }
+                    else { lblOda.Text = "Odaya kişi bekleniyor."; }
+                    
+                }
+                dr1.Close();
 
             }
 
@@ -209,6 +221,15 @@ namespace Otel_otomasyon
             Check_out check_Out = new Check_out(null);
             this.Hide();
             check_Out.ShowDialog();
+            this.Veri_guncelle();
+            this.Show();
+        }
+
+        private void checkinToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Check_in ci = new Check_in(null, null, null);
+            this.Hide();
+            ci.ShowDialog();
             this.Veri_guncelle();
             this.Show();
         }
